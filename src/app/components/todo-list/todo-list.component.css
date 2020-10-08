@@ -19,6 +19,7 @@
 .remove-item {
   cursor: pointer;
   margin-left: 14px;
+  color: crimson;
 }
 .remove-item:hover {
   color: black;
@@ -49,7 +50,7 @@
 }
 
 .completed {
-  text-decoration: line-through;
+  text-decoration: line-through crimson;
   color: grey;
 }
 
