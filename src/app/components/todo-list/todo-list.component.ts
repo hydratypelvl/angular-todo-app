@@ -1,3 +1,4 @@
+import { TodoListService } from './../../services/todo-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../../interfaces/todo';
 
@@ -13,8 +14,11 @@ export class TodoListComponent implements OnInit {
   beforeEditCache: string;
   filter: string;
   anyRemainingModel: boolean;
+  todoListService: TodoListService;
 
-  constructor() { }
+  constructor(todoListService: TodoListService) {
+    this.todoListService = todoListService;
+  }
 
   ngOnInit(): void {
     this.anyRemainingModel = true;
@@ -22,26 +26,7 @@ export class TodoListComponent implements OnInit {
     this.beforeEditCache = '';
     this.idForTodo = 4;
     this.todoTitle = '';
-    this.todos = [
-      {
-        id: 1,
-        title: 'Make Todo App',
-        completed: false,
-        editing: false,
-      },
-      {
-        id: 2,
-        title: 'Make Animations',
-        completed: false,
-        editing: false,
-      },
-      {
-        id: 3,
-        title: 'Push To Git',
-        completed: false,
-        editing: false,
-      },
-    ];
+    this.todos = this.todoListService.getTodoList();
   }
   addTodo(): void {
     if (this.todoTitle.trim().length === 0) {

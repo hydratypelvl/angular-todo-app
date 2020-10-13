@@ -9,6 +9,7 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoListService } from './services/todo-list.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     AutofocusFixModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [TodoListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
