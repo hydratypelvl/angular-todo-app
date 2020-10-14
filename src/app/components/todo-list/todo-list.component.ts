@@ -26,13 +26,12 @@ export class TodoListComponent implements OnInit {
     this.beforeEditCache = '';
     this.todoTitle = '';
     this.todos = this.todoListService.getTodoList();
-    this.idForTodo = Math.max(...this.todos.map(id => id.id)) + 1;
+    this.idForTodo = this.todoListService.getTodoId();
   }
   addTodo(): void {
     if (this.todoTitle.trim().length === 0) {
       return;
     }
-
     this.todoListService.addItem({
       id: this.idForTodo,
       title: this.todoTitle,
