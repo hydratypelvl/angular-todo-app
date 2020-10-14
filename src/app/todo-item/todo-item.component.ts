@@ -28,14 +28,28 @@ export class TodoItemComponent implements OnInit {
   @Output() doubleClickedItem = new EventEmitter();
   @Output() cancelledItem = new EventEmitter();
   @Output() deletedItem = new EventEmitter();
+  @Output() doneTask = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  doneEdit(todo: Todo): void {
+  updateItem(todo: Todo) {
+    this.doneTask.emit({
+      id: this.todo.id,
+      title: this.todo.title,
+      comepleted: {completed: !this.todo.completed},
+      editing: false
+    });
+  }
+
+  checkedItems(todo: Todo){
     this.checkedItem.emit(todo);
+  }
+
+  doneEdit(todo: Todo): void {
+    this.doneTask.emit(todo);
   }
 
   editTodo(todo: Todo): void {

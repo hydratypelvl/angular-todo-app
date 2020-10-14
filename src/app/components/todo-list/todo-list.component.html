@@ -4,12 +4,12 @@
 
 <app-todo-item *ngFor="let todo of todosFiltered()"
 [todo]="todo"
-(checkedItem)="doneEdit($event)"
 (doubleClickedItem)="editTodo($event)"
-(blurredItem)="doneEdit($event)"
-(enteredItem)="doneEdit($event)"
 (cancelledItem)="cancelEdit($event)"
-(deletedItem)="deleteTodo($event)">
+(deletedItem)="deleteTodo($event)"
+(checkedItem)="checkedItems($event)"
+(doneTask)="doneEdit($event)"
+>
 </app-todo-item>
 
 <div class="extra-container">

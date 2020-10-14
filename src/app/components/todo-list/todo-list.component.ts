@@ -1,6 +1,6 @@
+import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
 import { Component, OnInit } from '@angular/core';
-import { Todo } from '../../interfaces/todo';
 
 @Component({
   selector: 'app-todo-list',
@@ -24,16 +24,16 @@ export class TodoListComponent implements OnInit {
     this.anyRemainingModel = true;
     this.filter = 'all';
     this.beforeEditCache = '';
-    this.idForTodo = 4;
     this.todoTitle = '';
     this.todos = this.todoListService.getTodoList();
+    this.idForTodo = Math.max(...this.todos.map(id => id.id)) + 1;
   }
   addTodo(): void {
     if (this.todoTitle.trim().length === 0) {
       return;
     }
 
-    this.todos.push({
+    this.todoListService.addItem({
       id: this.idForTodo,
       title: this.todoTitle,
       completed: false,
@@ -49,6 +49,12 @@ export class TodoListComponent implements OnInit {
     todo.editing = true;
   }
 
+  cancelEdit(todo: Todo): void {
+    todo.title = this.beforeEditCache;
+    todo.editing = false;
+    this.todoListService.cancelEdit(todo);
+  }
+
   doneEdit(todo: Todo): void {
     if (todo.title.trim().length === 0) {
       todo.title = this.beforeEditCache;
@@ -56,15 +62,12 @@ export class TodoListComponent implements OnInit {
 
     this.anyRemainingModel = this.anyRemaining();
     todo.editing = false;
-  }
-
-  cancelEdit(todo: Todo): void {
-    todo.title = this.beforeEditCache;
-    todo.editing = false;
+    this.todoListService.doneEdit();
   }
 
   deleteTodo(id: number): void {
     this.todos = this.todos.filter(todo => todo.id !== id);
+    this.todoListService.deleteItem(id);
   }
 
   remaining(): number {
@@ -77,6 +80,11 @@ export class TodoListComponent implements OnInit {
 
   clearCompleted(): void {
     this.todos = this.todos.filter(todo => !todo.completed);
+    this.todoListService.deleteCompleted();
+  }
+
+  checkedItems(todo: Todo) {
+    this.todoListService.checkedItems();
   }
 
   checkAllTodos(): void {
