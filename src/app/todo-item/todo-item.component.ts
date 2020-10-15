@@ -61,6 +61,6 @@ export class TodoItemComponent implements OnInit {
   }
 
   deleteTodo(todo: Todo): void {
-    this.deletedItem.emit(todo.id);
+    this.deletedItem.emit(todo);
   }
 }

@@ -1,4 +1,3 @@
-import { TodoItemId } from './../interfaces/todo-item-id';
 import { Todo } from './../interfaces/todo';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
@@ -67,13 +66,18 @@ export class TodoListService {
     this.saveList();
   }
 
-  deleteItem(id: number) {
-    this.todos = this.todos.filter(todo => todo.id !== id);
+  deleteItem(todo: any) {
+    const index = this.todos.indexOf(todo);
+    this.todos.splice(index, 1);
     this.saveList();
   }
 
   deleteCompleted() {
-    this.todos = this.todos.filter(todo => !todo.completed);
+    for (let i = (this.todos.length - 1); i > -1; i--) {
+      if (this.todos[i].completed) {
+        this.todos.splice(i, 1);
+      }
+    }
     this.saveList();
   }
 

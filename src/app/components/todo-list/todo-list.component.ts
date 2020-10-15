@@ -64,9 +64,8 @@ export class TodoListComponent implements OnInit {
     this.todoListService.doneEdit();
   }
 
-  deleteTodo(id: number): void {
-    this.todos = this.todos.filter(todo => todo.id !== id);
-    this.todoListService.deleteItem(id);
+  deleteTodo(todo: Todo): void {
+    this.todoListService.deleteItem(todo);
   }
 
   remaining(): number {
@@ -78,7 +77,6 @@ export class TodoListComponent implements OnInit {
   }
 
   clearCompleted(): void {
-    this.todos = this.todos.filter(todo => !todo.completed);
     this.todoListService.deleteCompleted();
   }
 
