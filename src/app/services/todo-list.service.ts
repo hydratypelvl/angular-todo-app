@@ -24,31 +24,19 @@ const defaultTodoList = [
   },
 ];
 
-const todoId = 'todo-list-id';
-const defaultId = 4;
-
 @Injectable({
   providedIn: 'root'
 })
 export class TodoListService {
 
   private todos: Todo[];
-  private TodoItemId: number;
 
   constructor(private storageService: StorageService) {
     this.todos = storageService.getData(todoListStorageKey) || defaultTodoList;
-    this.TodoItemId = storageService.getData(todoId) || defaultId;
-  }
-
-  getTodoId() {
-    return this.TodoItemId++;
   }
 
   saveList() {
     this.storageService.setData(todoListStorageKey, this.todos);
-  }
-  saveId() {
-    this.storageService.setData(todoId, this.TodoItemId++);
   }
 
   getTodoList() {
@@ -58,7 +46,6 @@ export class TodoListService {
   addItem(item: Todo) {
     this.todos.push(item);
     this.saveList();
-    this.saveId();
   }
 
   checkedItems() {

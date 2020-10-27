@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Todo } from './../interfaces/todo';
+import { Todo } from './../../interfaces/todo';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({

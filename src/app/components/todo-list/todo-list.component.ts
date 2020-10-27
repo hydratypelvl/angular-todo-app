@@ -10,15 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class TodoListComponent implements OnInit {
   todos: Todo[];
   todoTitle: string;
-  idForTodo: number;
   beforeEditCache: string;
   filter: string;
   anyRemainingModel: boolean;
-  todoListService: TodoListService;
 
-  constructor(todoListService: TodoListService) {
-    this.todoListService = todoListService;
-  }
+  constructor(private todoListService: TodoListService) {}
 
   ngOnInit(): void {
     this.anyRemainingModel = true;
@@ -26,21 +22,29 @@ export class TodoListComponent implements OnInit {
     this.beforeEditCache = '';
     this.todoTitle = '';
     this.todos = this.todoListService.getTodoList();
-    this.idForTodo = this.todoListService.getTodoId();
   }
+
   addTodo(): void {
+    // checks if task is not null
     if (this.todoTitle.trim().length === 0) {
       return;
     }
+    // Generates Unique User ID
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    // adds todo to a list
     this.todoListService.addItem({
-      id: this.idForTodo,
+      id: uuidv4(),
       title: this.todoTitle,
       completed: false,
       editing: false
     });
-
+    // resets todo input
     this.todoTitle = '';
-    this.idForTodo++;
   }
 
   editTodo(todo: Todo): void {

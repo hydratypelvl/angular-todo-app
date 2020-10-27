@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListService } from './services/todo-list.service';
 
 @NgModule({
