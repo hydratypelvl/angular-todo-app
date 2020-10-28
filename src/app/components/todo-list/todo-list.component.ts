@@ -1,6 +1,7 @@
 import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[];
-  todoTitle: string;
+  todoTitle = new FormControl('');
   beforeEditCache: string;
   filter: string;
   anyRemainingModel: boolean;
@@ -20,13 +21,12 @@ export class TodoListComponent implements OnInit {
     this.anyRemainingModel = true;
     this.filter = 'all';
     this.beforeEditCache = '';
-    this.todoTitle = '';
     this.todos = this.todoListService.getTodoList();
   }
 
   addTodo(): void {
     // checks if task is not null
-    if (this.todoTitle.trim().length === 0) {
+    if (this.todoTitle.value.trim().length === 0) {
       return;
     }
     // Generates Unique User ID
@@ -39,12 +39,12 @@ export class TodoListComponent implements OnInit {
     // adds todo to a list
     this.todoListService.addItem({
       id: uuidv4(),
-      title: this.todoTitle,
+      title: this.todoTitle.value.trim(),
       completed: false,
       editing: false
     });
     // resets todo input
-    this.todoTitle = '';
+    this.todoTitle.setValue('');
   }
 
   editTodo(todo: Todo): void {

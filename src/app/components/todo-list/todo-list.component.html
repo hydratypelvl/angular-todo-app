@@ -1,6 +1,7 @@
 <img src="../../assets/bag.svg" alt="taco" class="logo">
 
-<input type="text" class="todo-input" placeholder="What needs to be done" [(ngModel)]="todoTitle" (keyup.enter)="addTodo()">
+<input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="todoTitle" (keyup.enter)="addTodo()">
+Value: {{ todoTitle.value }}
 
 <app-todo-item *ngFor="let todo of todosFiltered()"
 [todo]="todo"
