@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[];
-  todoTitle = new FormControl('');
+  itemTitle = new FormControl('');
   beforeEditCache: string;
   filter: string;
   anyRemainingModel: boolean;
@@ -22,11 +22,12 @@ export class TodoListComponent implements OnInit {
     this.filter = 'all';
     this.beforeEditCache = '';
     this.todos = this.todoListService.getTodoList();
+    // window.alert();
   }
 
   addTodo(): void {
     // checks if task is not null
-    if (this.todoTitle.value.trim().length === 0) {
+    if (this.itemTitle.value.trim().length === 0) {
       return;
     }
     // Generates Unique User ID
@@ -39,12 +40,12 @@ export class TodoListComponent implements OnInit {
     // adds todo to a list
     this.todoListService.addItem({
       id: uuidv4(),
-      title: this.todoTitle.value.trim(),
+      title: this.itemTitle.value.trim(),
       completed: false,
       editing: false
     });
     // resets todo input
-    this.todoTitle.setValue('');
+    this.itemTitle.setValue('');
   }
 
   editTodo(todo: Todo): void {
@@ -58,7 +59,8 @@ export class TodoListComponent implements OnInit {
     this.todoListService.cancelEdit(todo);
   }
 
-  doneEdit(todo: Todo): void {
+  doneEdit(todo: Todo) {
+    // window.alert(this.itemTitle.value);
     if (todo.title.trim().length === 0) {
       todo.title = this.beforeEditCache;
     }
@@ -88,7 +90,7 @@ export class TodoListComponent implements OnInit {
     this.todoListService.checkedItems();
   }
 
-  checkAllTodos(): void {
+  checkAllTodos(event: any): void {
     this.todos.forEach(todo => todo.completed = (event.target as HTMLInputElement).checked);
     this.anyRemainingModel = this.anyRemaining();
   }
@@ -98,13 +100,13 @@ export class TodoListComponent implements OnInit {
   }
 
   todosFiltered(): Todo[] {
-    if (this.filter === 'all') {
-      return this.todos;
-    } else if (this.filter === 'active') {
-      return this.todos.filter(todo => !todo.completed);
-    } else if (this.filter === 'completed') {
-      return this.todos.filter(todo => todo.completed);
-    }
+    // if (this.filter === 'all') {
+    //   return this.todos;
+    // } else if (this.filter === 'active') {
+    //   return this.todos.filter(todo => !todo.completed);
+    // } else if (this.filter === 'completed') {
+    //   return this.todos.filter(todo => todo.completed);
+    // }
 
     return this.todos;
   }

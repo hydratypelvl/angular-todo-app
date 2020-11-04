@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from './../../interfaces/todo';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -29,20 +30,24 @@ export class TodoItemComponent implements OnInit {
   @Output() cancelledItem = new EventEmitter();
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
+  @Output() itemTitle = new FormControl('');
 
   constructor() { }
 
   ngOnInit(): void {
+    this.itemTitle = new FormControl(this.todo.title);
+    // window.alert(this.itemTitle.value);
   }
 
-  updateItem(todo: Todo) {
-    this.doneTask.emit({
-      id: this.todo.id,
-      title: this.todo.title,
-      comepleted: {completed: !this.todo.completed},
-      editing: false
-    });
-  }
+  // updateItem(todo: Todo) {
+  //   window.alert('');
+  //   this.doneTask.emit({
+  //     id: this.todo.id,
+  //     title: this.itemTitle.value,
+  //     comepleted: {completed: !this.todo.completed},
+  //     editing: false
+  //   });
+  // }
 
   checkedItems(todo: Todo){
     this.checkedItem.emit(todo);

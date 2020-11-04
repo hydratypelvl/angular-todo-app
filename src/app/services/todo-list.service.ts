@@ -36,6 +36,7 @@ export class TodoListService {
   }
 
   saveList() {
+    console.log(this.todos);
     this.storageService.setData(todoListStorageKey, this.todos);
   }
 
@@ -65,6 +66,8 @@ export class TodoListService {
         this.todos.splice(i, 1);
       }
     }
+    // this.todos = this.todos.filter(todo => !todo.completed);
+
     this.saveList();
   }
 
@@ -75,4 +78,5 @@ export class TodoListService {
   doneEdit() {
     this.saveList();
   }
+  
 }

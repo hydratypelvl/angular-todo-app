@@ -1,9 +1,9 @@
 <img src="../../assets/bag.svg" alt="taco" class="logo">
 
-<input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="todoTitle" (keyup.enter)="addTodo()">
-Value: {{ todoTitle.value }}
+<input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="itemTitle" (keyup.enter)="addTodo()">
+Value: {{ itemTitle.value }}
 
-<app-todo-item *ngFor="let todo of todosFiltered()"
+<app-todo-item *ngFor="let todo of todos"
 [todo]="todo"
 (doubleClickedItem)="editTodo($event)"
 (cancelledItem)="cancelEdit($event)"
@@ -14,7 +14,7 @@ Value: {{ todoTitle.value }}
 </app-todo-item>
 
 <div class="extra-container">
-  <div><label><input type="checkbox" (change)="checkAllTodos()"  [(ngModel)]="!anyRemainingModel"> Check All</label></div>
+  <div><label><input type="checkbox" (change)="checkAllTodos($event)"  [(ngModel)]="!anyRemainingModel"> Check All</label></div>
   <div>{{ remaining() }} items left</div>
 </div>
 
