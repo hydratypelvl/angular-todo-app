@@ -31,37 +31,31 @@ export class TodoItemComponent implements OnInit {
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
   @Output() itemTitle = new FormControl('');
+  beforeEditCache: string;
 
   constructor() { }
 
   ngOnInit(): void {
     this.itemTitle = new FormControl(this.todo.title);
-    // window.alert(this.itemTitle.value);
+    this.beforeEditCache = '';
   }
-
-  // updateItem(todo: Todo) {
-  //   window.alert('');
-  //   this.doneTask.emit({
-  //     id: this.todo.id,
-  //     title: this.itemTitle.value,
-  //     comepleted: {completed: !this.todo.completed},
-  //     editing: false
-  //   });
-  // }
 
   checkedItems(todo: Todo){
     this.checkedItem.emit(todo);
   }
 
   doneEdit(todo: Todo): void {
+    this.todo.title = this.itemTitle.value;
     this.doneTask.emit(todo);
   }
 
   editTodo(todo: Todo): void {
+    this.beforeEditCache = todo.title;
     this.doubleClickedItem.emit(todo);
   }
 
   cancelEdit(todo: Todo): void {
+    this.itemTitle.setValue(this.beforeEditCache);
     this.cancelledItem.emit(todo);
   }
 

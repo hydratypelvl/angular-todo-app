@@ -60,7 +60,6 @@ export class TodoListComponent implements OnInit {
   }
 
   doneEdit(todo: Todo) {
-    // window.alert(this.itemTitle.value);
     if (todo.title.trim().length === 0) {
       todo.title = this.beforeEditCache;
     }
