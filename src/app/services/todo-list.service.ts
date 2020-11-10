@@ -36,7 +36,6 @@ export class TodoListService {
   }
 
   saveList() {
-    console.log(this.todos);
     this.storageService.setData(todoListStorageKey, this.todos);
   }
 
@@ -49,7 +48,7 @@ export class TodoListService {
     this.saveList();
   }
 
-  checkedItems() {
+  checkAllTodos() {
     this.todos.forEach(todo => todo.completed);
     this.saveList();
   }

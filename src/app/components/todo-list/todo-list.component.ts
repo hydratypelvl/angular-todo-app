@@ -85,27 +85,25 @@ export class TodoListComponent implements OnInit {
     this.todoListService.deleteCompleted();
   }
 
-  checkedItems(todo: Todo) {
-    this.todoListService.checkedItems();
-  }
-
   checkAllTodos(event: any): void {
     this.todos.forEach(todo => todo.completed = (event.target as HTMLInputElement).checked);
     this.anyRemainingModel = this.anyRemaining();
+    this.todoListService.checkAllTodos();
   }
+
 
   anyRemaining(): boolean {
     return this.remaining() !== 0;
   }
 
   todosFiltered(): Todo[] {
-    // if (this.filter === 'all') {
-    //   return this.todos;
-    // } else if (this.filter === 'active') {
-    //   return this.todos.filter(todo => !todo.completed);
-    // } else if (this.filter === 'completed') {
-    //   return this.todos.filter(todo => todo.completed);
-    // }
+    if (this.filter === 'all') {
+      return this.todos;
+    } else if (this.filter === 'active') {
+      return this.todos.filter(todo => !todo.completed);
+    } else if (this.filter === 'completed') {
+      return this.todos.filter(todo => todo.completed);
+    }
 
     return this.todos;
   }
