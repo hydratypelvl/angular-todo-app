@@ -36,7 +36,6 @@ export class TodoListService {
   }
 
   saveList() {
-    console.log(this.todos);
     this.storageService.setData(todoListStorageKey, this.todos);
   }
 

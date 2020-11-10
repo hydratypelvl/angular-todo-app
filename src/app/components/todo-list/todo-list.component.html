@@ -3,7 +3,7 @@
 <input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="itemTitle" (keyup.enter)="addTodo()">
 Value: {{ itemTitle.value }}
 
-<app-todo-item *ngFor="let todo of todos"
+<app-todo-item *ngFor="let todo of todosFiltered()"
 [todo]="todo"
 (doubleClickedItem)="editTodo($event)"
 (cancelledItem)="cancelEdit($event)"

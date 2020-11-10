@@ -1,12 +1,13 @@
 import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[];
@@ -22,7 +23,6 @@ export class TodoListComponent implements OnInit {
     this.filter = 'all';
     this.beforeEditCache = '';
     this.todos = this.todoListService.getTodoList();
-    // window.alert();
   }
 
   addTodo(): void {
@@ -49,12 +49,10 @@ export class TodoListComponent implements OnInit {
   }
 
   editTodo(todo: Todo): void {
-    this.beforeEditCache = todo.title;
     todo.editing = true;
   }
 
   cancelEdit(todo: Todo): void {
-    todo.title = this.beforeEditCache;
     todo.editing = false;
     this.todoListService.cancelEdit(todo);
   }
@@ -100,13 +98,13 @@ export class TodoListComponent implements OnInit {
   }
 
   todosFiltered(): Todo[] {
-    // if (this.filter === 'all') {
-    //   return this.todos;
-    // } else if (this.filter === 'active') {
-    //   return this.todos.filter(todo => !todo.completed);
-    // } else if (this.filter === 'completed') {
-    //   return this.todos.filter(todo => todo.completed);
-    // }
+    if (this.filter === 'all') {
+      return this.todos;
+    } else if (this.filter === 'active') {
+      return this.todos.filter(todo => !todo.completed);
+    } else if (this.filter === 'completed') {
+      return this.todos.filter(todo => todo.completed);
+    }
 
     return this.todos;
   }
