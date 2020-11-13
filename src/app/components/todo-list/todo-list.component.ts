@@ -1,12 +1,13 @@
 import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[];
@@ -86,6 +87,9 @@ export class TodoListComponent implements OnInit {
   }
 
   checkAllTodos(event: any): void {
+    // const checked = event.target.checked;
+    // this.todos.forEach(item => item.completed);
+
     this.todos.forEach(todo => todo.completed = (event.target as HTMLInputElement).checked);
     this.anyRemainingModel = this.anyRemaining();
     this.todoListService.checkAllTodos();
