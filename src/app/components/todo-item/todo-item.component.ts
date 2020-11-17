@@ -2,6 +2,7 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Todo } from './../../interfaces/todo';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -26,23 +27,22 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class TodoItemComponent implements OnInit {
 
   @Input() todo: Todo;
+  @Input() completed = false;
   @Output() checkedItem = new EventEmitter();
   @Output() doubleClickedItem = new EventEmitter();
   @Output() cancelledItem = new EventEmitter();
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
   @Output() itemTitle = new FormControl('');
+  // @Output() itemCompleted = new FormControl(true);
   beforeEditCache: string;
 
   constructor() { }
 
   ngOnInit(): void {
     this.itemTitle = new FormControl(this.todo.title);
+    // this.itemCompleted = new FormControl(this.completed);
     this.beforeEditCache = '';
-  }
-
-  checkedItems(todo: Todo){
-    this.checkedItem.emit(todo);
   }
 
   doneEdit(todo: Todo): void {

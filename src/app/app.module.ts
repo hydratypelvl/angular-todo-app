@@ -9,6 +9,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoListService } from './services/todo-list.service';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TodoListService } from './services/todo-list.service';
     FormsModule,
     ReactiveFormsModule,
     AutofocusFixModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PipesModule
   ],
   providers: [TodoListService],
   bootstrap: [AppComponent]
