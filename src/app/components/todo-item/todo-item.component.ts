@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Todo } from './../../interfaces/todo';
 import { trigger, transition, style, animate } from '@angular/animations';
 
@@ -26,22 +26,27 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class TodoItemComponent implements OnInit {
 
   @Input() todo: Todo;
+  @Input() completed: boolean;
   @Output() checkedItem = new EventEmitter();
   @Output() doubleClickedItem = new EventEmitter();
   @Output() cancelledItem = new EventEmitter();
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
   @Output() itemTitle = new FormControl('');
+  @Output() itemCompleted = new FormControl(true);
   beforeEditCache: string;
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.itemTitle = new FormControl(this.todo.title);
+    this.itemCompleted = new FormControl(this.todo.completed);
     this.beforeEditCache = '';
   }
 
   checkedItems(todo: Todo){
+    // todo = Object.assign({}, todo);
+    todo.completed = !todo.completed;
     this.checkedItem.emit(todo);
   }
 
@@ -62,5 +67,10 @@ export class TodoItemComponent implements OnInit {
 
   deleteTodo(todo: Todo): void {
     this.deletedItem.emit(todo);
+  }
+
+  changeDetect() {
+    console.log('todo', this.todo.completed);
+    this.cdr.detectChanges();
   }
 }

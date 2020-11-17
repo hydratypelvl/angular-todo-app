@@ -1,29 +1,39 @@
 import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit {
-  todos: Todo[];
   itemTitle = new FormControl('');
+  // itemCompleted = new FormControl(false);
   beforeEditCache: string;
   filter: string;
   anyRemainingModel: boolean;
+  isMasterSel: boolean;
+  checkedCategoryLists: any;
 
-  constructor(private todoListService: TodoListService) {}
+  get todos(): Todo[] {
+    return this.todoListService.todoList;
+  }
+
+  set todos(todo: Todo[]) {
+    this.todoListService.todoList = todo;
+  }
+
+  constructor(private todoListService: TodoListService, private cdr: ChangeDetectorRef) {}
+
 
   ngOnInit(): void {
     this.anyRemainingModel = true;
     this.filter = 'all';
     this.beforeEditCache = '';
-    this.todos = this.todoListService.getTodoList();
   }
 
   addTodo(): void {
@@ -82,32 +92,36 @@ export class TodoListComponent implements OnInit {
 
   clearCompleted(): void {
     this.todoListService.deleteCompleted();
+    this.cdr.detectChanges();
   }
 
-  checkAllTodos(event: any): void {
-    // const checked = event.target.checked;
-    // this.todos.forEach(item => item.completed);
+  checkUncheckAll(value: boolean): void {
+    this.todos = this.todos.map(todo => ({
+      ...todo,
+      completed: value
+    }));
+    // this.todos.forEach(todo => todo.completed = !todo.completed);
+    console.log('todos', this.todos);
 
-    this.todos.forEach(todo => todo.completed = (event.target as HTMLInputElement).checked);
     this.anyRemainingModel = this.anyRemaining();
     this.todoListService.checkAllTodos();
+    this.cdr.detectChanges();
   }
 
+  // checkUncheckAll() {
+  //   for (const todo of this.todos) {
+  //     todo.completed = !todo.completed;
+  //   }
+  //   this.anyRemainingModel = this.anyRemaining();
+  //   this.todoListService.checkAllTodos();
+  // }
 
   anyRemaining(): boolean {
     return this.remaining() !== 0;
   }
 
-  todosFiltered(): Todo[] {
-    if (this.filter === 'all') {
-      return this.todos;
-    } else if (this.filter === 'active') {
-      return this.todos.filter(todo => !todo.completed);
-    } else if (this.filter === 'completed') {
-      return this.todos.filter(todo => todo.completed);
-    }
-
-    return this.todos;
+  detectChanges() {
+    this.cdr.markForCheck();
   }
 
 }
