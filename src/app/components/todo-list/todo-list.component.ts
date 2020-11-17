@@ -60,10 +60,12 @@ export class TodoListComponent implements OnInit {
   }
 
   editTodo(todo: Todo): void {
+    this.beforeEditCache = todo.title;
     todo.editing = true;
   }
 
   cancelEdit(todo: Todo): void {
+    todo.title = this.beforeEditCache;
     todo.editing = false;
     this.todoListService.cancelEdit(todo);
   }
