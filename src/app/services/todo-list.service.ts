@@ -31,14 +31,6 @@ export class TodoListService {
 
   private todos: Todo[];
 
-  get todoList(): Todo[] {
-    return this.todos;
-  }
-
-  set todoList(todos: Todo[]) {
-    this.todos = todos;
-  }
-
   constructor(private storageService: StorageService) {
     this.todos = storageService.getData(todoListStorageKey) || defaultTodoList;
   }
@@ -47,6 +39,9 @@ export class TodoListService {
     this.storageService.setData(todoListStorageKey, this.todos);
   }
 
+  getTodoList() {
+    return this.todos;
+  }
 
   addItem(item: Todo) {
     this.todos.push(item);
@@ -65,12 +60,12 @@ export class TodoListService {
   }
 
   deleteCompleted() {
-    // for (let i = (this.todos.length - 1); i > -1; i--) {
-    //   if (this.todos[i].completed) {
-    //     this.todos.splice(i, 1);
-    //   }
-    // }
-    this.todos = this.todos.filter(todo => !todo.completed);
+    for (let i = (this.todos.length - 1); i > -1; i--) {
+      if (this.todos[i].completed) {
+        this.todos.splice(i, 1);
+      }
+    }
+    // this.todos = this.todos.filter(todo => !todo.completed);
 
     this.saveList();
   }
