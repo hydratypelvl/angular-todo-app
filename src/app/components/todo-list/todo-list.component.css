@@ -18,7 +18,7 @@
   margin-bottom: 14px;
 }
 
-button {
+/* button {
   font-size: 14px;
   background-color: white;
   appearance: none;
@@ -35,10 +35,14 @@ button:hover {
 }
 button:focus {
   outline: none;
+} */
+button {
+  margin: 2px;
 }
 
 .active {
-  background: lightgreen;
+  background: #ff4080;
+  color: white;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -47,4 +51,10 @@ button:focus {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+mat-form-field {
+  width: 100%;
+}
+.mat-form-field-underline {
+  background-color: green;
 }

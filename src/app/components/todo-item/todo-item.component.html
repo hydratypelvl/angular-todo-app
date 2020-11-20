@@ -1,9 +1,12 @@
 <div class="todo-item" @fade>
   <div class="todo-item-left">
-    <input type="checkbox" [(ngModel)]="todo.completed" (change)="doneEdit(todo)">
+    <mat-checkbox class="example-margin" [(ngModel)]="todo.completed" (change)="doneEdit(todo)"></mat-checkbox>
     <div *ngIf="!todo.editing; else editingTodo" class="todo-item-label" [ngClass]="{ 'completed' : completed }" (dblclick)="editTodo(todo)">{{ itemTitle.value }}</div>
     <ng-template #editingTodo>
-      <input type="text" class="todo-item-edit" [formControl]="itemTitle" (blur)="doneEdit(todo)" (keyup.enter)="doneEdit(todo)" (keyup.esc)="cancelEdit(todo)" autofocus>
+      <!-- <input type="text" class="todo-item-edit" [formControl]="itemTitle" (blur)="doneEdit(todo)" (keyup.enter)="doneEdit(todo)" (keyup.esc)="cancelEdit(todo)" autofocus> -->
+      <mat-form-field class="editing-field">
+        <input matInput [formControl]="itemTitle" (blur)="doneEdit(todo)" (keyup.enter)="doneEdit(todo)" (keyup.esc)="cancelEdit(todo)" autofocus>
+      </mat-form-field>
     </ng-template>
   </div>
   <div class="remove-item" (click)="deleteTodo(todo)">

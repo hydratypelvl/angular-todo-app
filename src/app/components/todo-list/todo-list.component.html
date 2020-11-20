@@ -1,7 +1,15 @@
 <img src="../../assets/bag.svg" alt="taco" class="logo">
 
-<input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="itemTitle" (keyup.enter)="addTodo()">
+<!-- <input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="itemTitle" (keyup.enter)="addTodo()"> -->
+<mat-card>
+  <mat-form-field appearance="outline">
+    <mat-label>Add Todo</mat-label>
+    <input matInput [formControl]="itemTitle" (keyup.enter)="addTodo()">
+  </mat-form-field>
+
+<br>
 Value: {{ itemTitle.value }}
+
 
 <app-todo-item *ngFor="let todo of todos | filterPipe:filter"
 [todo]="todo"
@@ -15,19 +23,23 @@ Value: {{ itemTitle.value }}
 </app-todo-item>
 
 <div class="extra-container">
-  <div><label><input type="checkbox" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All</label></div>
+  <div><label>
+    <!-- <input type="checkbox" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All -->
+    <mat-checkbox class="example-margin" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All</mat-checkbox>
+  </label></div>
   <div>{{ remaining() }} items left</div>
 </div>
 
 <div class="extra-container">
   <div>
-    <button [ngClass]="{'active': filter === 'all'}" (click)="filter='all'">All</button>
-    <button [ngClass]="{'active': filter === 'active'}" (click)="filter='active'">Active</button>
-    <button [ngClass]="{'active': filter === 'completed'}" (click)="filter='completed'">Completed</button>
+    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'all'}" (click)="filter='all'">All</button>
+    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'active'}" (click)="filter='active'">Active</button>
+    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'completed'}" (click)="filter='completed'">Completed</button>
   </div>
 
   <div *ngIf="atLeastOneCompleted()">
-    <button (click)="clearCompleted()">Clear Completed</button>
+    <button mat-raised-button color="accent" (click)="clearCompleted()">Clear Completed</button>
   </div>
 
 </div>
+</mat-card>
