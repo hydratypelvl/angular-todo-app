@@ -2,6 +2,7 @@ import { Todo } from './../../interfaces/todo';
 import { TodoListService } from './../../services/todo-list.service';
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { uuidv4 } from './../../utils/uuid.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -36,13 +37,7 @@ export class TodoListComponent implements OnInit {
     if (this.itemTitle.value.trim().length === 0) {
       return;
     }
-    // Generates Unique User ID
-    function uuidv4() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
+
     // adds todo to a list
     this.todoListService.addItem({
       id: uuidv4(),
