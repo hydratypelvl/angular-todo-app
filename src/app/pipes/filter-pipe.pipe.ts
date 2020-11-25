@@ -4,7 +4,7 @@ import { Todo } from '../interfaces/todo';
 @Pipe({
   name: 'filterPipe'
 })
-export class FilterPipePipe implements PipeTransform {
+export class FilterPipe implements PipeTransform {
 
   transform(todos: Todo[], filter: string): Todo[] {
     if (filter === 'all') {
