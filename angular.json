@@ -126,7 +126,8 @@
   "defaultProject": "todo-list",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "styleext": "scss"
     }
   }
 }

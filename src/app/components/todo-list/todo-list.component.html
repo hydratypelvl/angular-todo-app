@@ -1,6 +1,5 @@
 <img src="../../assets/bag.svg" alt="taco" class="logo">
 
-<!-- <input type="text" class="todo-input" placeholder="What needs to be done" [formControl]="itemTitle" (keyup.enter)="addTodo()"> -->
 <mat-card>
   <mat-form-field appearance="outline">
     <mat-label>Add Todo</mat-label>
@@ -8,8 +7,6 @@
   </mat-form-field>
 
 <br>
-<!-- Value: {{ itemTitle.value }} -->
-
 
 <app-todo-item *ngFor="let todo of todos | filterPipe:filter"
 [todo]="todo"
@@ -24,7 +21,6 @@
 
 <div class="extra-container">
   <div><label>
-    <!-- <input type="checkbox" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All -->
     <mat-checkbox class="example-margin" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All</mat-checkbox>
   </label></div>
   <div>{{ remaining() }} items left</div>

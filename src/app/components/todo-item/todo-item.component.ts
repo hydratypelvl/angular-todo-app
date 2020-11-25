@@ -2,7 +2,6 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Todo } from './../../interfaces/todo';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -34,14 +33,12 @@ export class TodoItemComponent implements OnInit {
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
   @Output() itemTitle = new FormControl('');
-  // @Output() itemCompleted = new FormControl(true);
   beforeEditCache: string;
 
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.itemTitle = new FormControl(this.todo.title);
-    // this.itemCompleted = new FormControl(this.completed);
     this.beforeEditCache = '';
   }
 
