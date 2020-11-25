@@ -8,7 +8,7 @@
   </mat-form-field>
 
 <br>
-Value: {{ itemTitle.value }}
+<!-- Value: {{ itemTitle.value }} -->
 
 
 <app-todo-item *ngFor="let todo of todos | filterPipe:filter"
@@ -32,11 +32,13 @@ Value: {{ itemTitle.value }}
 
 <div class="extra-container">
   <div>
-    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'all'}" (click)="filter='all'">All</button>
-    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'active'}" (click)="filter='active'">Active</button>
-    <button mat-raised-button color="basic" [ngClass]="{'active': filter === 'completed'}" (click)="filter='completed'">Completed</button>
+      <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle [ngClass]="{'active': filter === 'all'}" (click)="filter='all'">All</mat-button-toggle>
+        <mat-button-toggle [ngClass]="{'active': filter === 'active'}" (click)="filter='active'">Active</mat-button-toggle>
+        <mat-button-toggle [ngClass]="{'active': filter === 'completed'}" (click)="filter='completed'">Completed</mat-button-toggle>
+      </mat-button-toggle-group>
   </div>
-
+  
   <div *ngIf="atLeastOneCompleted()">
     <button mat-raised-button color="accent" (click)="clearCompleted()">Clear Completed</button>
   </div>

@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatCardModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatButtonToggleModule,
   ],
   providers: [TodoListService],
   bootstrap: [AppComponent]
