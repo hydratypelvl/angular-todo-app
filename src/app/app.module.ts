@@ -9,20 +9,22 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoListService } from './services/todo-list.service';
-import { PipesModule } from './pipes/pipes.module';
+import { FilterPipe } from './pipes/filter-pipe.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ReactiveFormsModule,
     AutofocusFixModule.forRoot(),
     BrowserAnimationsModule,
-    PipesModule,
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
@@ -40,6 +42,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatButtonToggleModule,
   ],
   providers: [TodoListService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [FilterPipe]
 })
 export class AppModule { }
