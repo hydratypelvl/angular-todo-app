@@ -33,6 +33,8 @@ export class TodoItemComponent implements OnInit {
   @Output() deletedItem = new EventEmitter();
   @Output() doneTask = new EventEmitter();
   @Output() itemTitle = new FormControl('');
+  @Output() checkItem = new FormControl('');
+
   beforeEditCache: string;
 
   constructor(private cdr: ChangeDetectorRef) { }
@@ -40,10 +42,16 @@ export class TodoItemComponent implements OnInit {
   ngOnInit(): void {
     this.itemTitle = new FormControl(this.todo.title);
     this.beforeEditCache = '';
+    this.checkItem.setValue(this.todo.completed);
+    this.checkItem.valueChanges.subscribe(value => {
+      this.doneEdit(value);
+      console.log(value);
+    });
   }
 
   doneEdit(todo: Todo): void {
     this.todo.title = this.itemTitle.value;
+    this.todo.completed = this.checkItem.value;
     this.doneTask.emit(todo);
     this.cdr.detectChanges();
   }

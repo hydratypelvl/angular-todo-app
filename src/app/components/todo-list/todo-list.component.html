@@ -21,7 +21,7 @@
 
 <div class="extra-container">
   <div><label>
-    <mat-checkbox class="example-margin" (change)="checkAllTodos(anyRemainingModel)"  [(ngModel)]="!anyRemainingModel"> Check All</mat-checkbox>
+    <mat-checkbox class="example-margin" [formControl]="checkAll"> Check All</mat-checkbox>
   </label></div>
   <div>{{ remaining() }} items left</div>
 </div>

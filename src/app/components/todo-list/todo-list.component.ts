@@ -12,9 +12,9 @@ import { uuidv4 } from './../../utils/uuid.component';
 })
 export class TodoListComponent implements OnInit {
   itemTitle = new FormControl('');
+  checkAll = new FormControl('');
   beforeEditCache: string;
   filter: string;
-  anyRemainingModel: boolean;
 
   get todos(): Todo[] {
     return this.todoListService.todoList;
@@ -27,9 +27,11 @@ export class TodoListComponent implements OnInit {
   constructor(private todoListService: TodoListService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.anyRemainingModel = true;
     this.filter = 'all';
     this.beforeEditCache = '';
+    this.checkAll.valueChanges.subscribe(value => {
+      this.checkAllTodos(value);
+    });
   }
 
   addTodo(): void {
@@ -63,7 +65,6 @@ export class TodoListComponent implements OnInit {
       todo.title = this.beforeEditCache;
     }
 
-    this.anyRemainingModel = this.anyRemaining();
     todo.editing = false;
     this.todoListService.doneEdit();
   }
@@ -92,12 +93,8 @@ export class TodoListComponent implements OnInit {
       completed: value
     }));
 
-    this.anyRemainingModel = this.anyRemaining();
     this.todoListService.checkAllTodos();
     this.cdr.detectChanges();
   }
 
-  anyRemaining(): boolean {
-    return this.remaining() !== 0;
-  }
 }
